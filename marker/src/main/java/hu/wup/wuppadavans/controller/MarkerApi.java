@@ -59,8 +59,8 @@ public class MarkerApi {
     @RequestMapping(value = "/hu/wup/wuppadavans/model/{markerId}",
             produces = {"application/json"},
             method = RequestMethod.POST)
-    ResponseEntity<Void> updatemarker(@RequestBody Marker marker) {
-        return null;
+    ResponseEntity<Void> updatemarker(@RequestBody Marker marker, @PathVariable("markerId") Long markerId) {
+        return markerService.updatemarker(marker, markerId);
     }
 
 }

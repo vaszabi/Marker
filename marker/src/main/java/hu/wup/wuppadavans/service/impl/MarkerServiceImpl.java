@@ -6,6 +6,7 @@ import hu.wup.wuppadavans.service.MarkerService;
 import hu.wup.wuppadavans.repository.MarkerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -15,7 +16,7 @@ import java.util.List;
 
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
-
+@Service
 public class MarkerServiceImpl implements MarkerService {
 
     private MarkerRepository markerRepository;
@@ -35,7 +36,7 @@ public class MarkerServiceImpl implements MarkerService {
     public ResponseEntity<Void> deletemarkerById(@PathVariable("markerId") Long markerId) {
         List<Marker> temp = new ArrayList<Marker>();
         for (Marker marker : temp) {
-            if (!id.equals(marker.getId())) {
+            if (!markerId.equals(marker.getId())) {
                 temp.add(marker);
             }
         }
@@ -95,7 +96,31 @@ public class MarkerServiceImpl implements MarkerService {
         return (ResponseEntity<Marker>) markerRepository;
     }
 
-    public ResponseEntity<Void> updatemarker(@RequestBody Marker marker) {
-        return null;
+    @Override
+    public ResponseEntity<Void> updatemarker(@RequestBody Marker updatedMarker, @PathVariable("markerId") Long markerId) {
+        for (Marker marker : markers) {
+            if (markerId.equals(marker.getId())) {
+                marker.setName(updatedMarker.getName());
+                marker.setId(updatedMarker.getId());
+                marker.setAddress(updatedMarker.getAddress());
+                marker.setDescription(updatedMarker.getDescription());
+                marker.setOpeningTime(updatedMarker.getOpeningTime());
+                marker.setIsOpen(updatedMarker.getIsOpen());
+                marker.setPhones(updatedMarker.getPhones());
+                marker.setHasPharmacy(updatedMarker.getHasPharmacy());
+                marker.setIsPharmacyOpen(updatedMarker.getIsPharmacyOpen());
+                marker.setPharmacyOpeningTime(updatedMarker.getPharmacyOpeningTime());
+                marker.setIsDuty(updatedMarker.getIsDuty());
+                marker.setLatitude(updatedMarker.getLatitude());
+                marker.setLongitude(updatedMarker.getLongitude());
+                marker.setFacebookUri(updatedMarker.getFacebookUri());
+                marker.setImageUri(updatedMarker.getImageUri());
+                marker.setType(updatedMarker.getType());
+                marker.setWebUri(updatedMarker.getWebUri());
+
+
+            }
+        }
+        return (ResponseEntity<Void>) markers;
     }
 }

@@ -16,4 +16,6 @@ public interface MarkerService {
     ResponseEntity<Marker> loadmarkerById(@PathVariable("markerId") Long markerId);
 
     ResponseEntity<Marker> register(@RequestBody Marker marker);
+
+    ResponseEntity<Void> updatemarker(@RequestBody Marker updatedMarker, @PathVariable("markerId") Long markerId);
 }

@@ -1,7 +1,0 @@
-hu\wup\wuppadavans\Application.class
-hu\wup\wuppadavans\service\impl\MarkerServiceImpl.class
-hu\wup\wuppadavans\model\Marker.class
-hu\wup\wuppadavans\repository\MarkerRepository.class
-hu\wup\wuppadavans\service\MarkerService.class
-hu\wup\wuppadavans\controller\MarkerApi.class
-hu\wup\wuppadavans\entity\MarkerEntity.class
