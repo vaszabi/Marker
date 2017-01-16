@@ -1,7 +1,7 @@
-package entity;
+package hu.wup.wuppadavans.entity;
 
 
-import model.Marker;
+import hu.wup.wuppadavans.model.Marker;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -54,6 +54,9 @@ public class MarkerEntity {
         this.userEntityList = userEntityList;
 
 
+    }
+
+    public MarkerEntity(String name, String address, String description, Long id, List<String> openingTime, Boolean isOpen, Boolean hasPharmacy, List<String> pharmacyOpeningTime, Boolean isPharmacyOpen, Boolean isDuty, String type, String webUri, List<String> phones, String facebookUri, String imageUri, Double latitude, Double longitude) {
     }
 
     public Long getId() {

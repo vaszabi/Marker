@@ -1,4 +1,4 @@
-package model;
+package hu.wup.wuppadavans.model;
 
 import java.util.Objects;
 import java.util.ArrayList;

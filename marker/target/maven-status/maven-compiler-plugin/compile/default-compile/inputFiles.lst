@@ -1,3 +1,7 @@
-D:\GitHub\geolocation\marker\src\main\java\Application.java
-D:\GitHub\geolocation\marker\src\main\java\marker\MarkerApi.java
-D:\GitHub\geolocation\marker\src\main\java\marker\Marker.java
+D:\GitHub\marker\marker\src\main\java\hu\wup\wuppadavans\model\Marker.java
+D:\GitHub\marker\marker\src\main\java\hu\wup\wuppadavans\controller\MarkerApi.java
+D:\GitHub\marker\marker\src\main\java\hu\wup\wuppadavans\service\MarkerService.java
+D:\GitHub\marker\marker\src\main\java\hu\wup\wuppadavans\service\impl\MarkerServiceImpl.java
+D:\GitHub\marker\marker\src\main\java\hu\wup\wuppadavans\Application.java
+D:\GitHub\marker\marker\src\main\java\hu\wup\wuppadavans\entity\MarkerEntity.java
+D:\GitHub\marker\marker\src\main\java\hu\wup\wuppadavans\repository\MarkerRepository.java
