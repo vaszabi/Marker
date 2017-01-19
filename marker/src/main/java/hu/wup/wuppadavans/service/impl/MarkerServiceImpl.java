@@ -2,19 +2,16 @@ package hu.wup.wuppadavans.service.impl;
 
 import hu.wup.wuppadavans.entity.MarkerEntity;
 import hu.wup.wuppadavans.model.Marker;
-import hu.wup.wuppadavans.service.MarkerService;
 import hu.wup.wuppadavans.repository.MarkerRepository;
+import hu.wup.wuppadavans.service.MarkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 public class MarkerServiceImpl implements MarkerService {
@@ -22,10 +19,6 @@ public class MarkerServiceImpl implements MarkerService {
     private MarkerRepository markerRepository;
     private List<Marker> markers;
 
-    @Autowired
-    public void setUserRepository(MarkerRepository markerRepository) {
-        this.markerRepository = markerRepository;
-    }
 
     public MarkerServiceImpl() {
         this.markers = new ArrayList();
@@ -48,20 +41,18 @@ public class MarkerServiceImpl implements MarkerService {
     @Override
     public ResponseEntity<List<Marker>> loadAllmarker() {
         List<Marker> markerElements = new ArrayList();
-        List<Marker> markerEntities = markerRepository.findAll();
-        for (Marker entity : markerEntities) {
+        List<MarkerEntity> markerEntities = markerRepository.findAll();
+        for (MarkerEntity entity : markerEntities) {
             Marker marker = new Marker();
             marker.setName(entity.getName());
             marker.setId(entity.getId());
             marker.setAddress(entity.getAddress());
             marker.setDescription(entity.getDescription());
-            marker.setOpeningTime(entity.getOpeningTime());
-            marker.setIsOpen(entity.getIsOpen());
+            marker.setIsOpen(entity.getOpen());
             marker.setPhones(entity.getPhones());
             marker.setHasPharmacy(entity.getHasPharmacy());
-            marker.setIsPharmacyOpen(entity.getIsPharmacyOpen());
-            marker.setPharmacyOpeningTime(entity.getPharmacyOpeningTime());
-            marker.setIsDuty(entity.getIsDuty());
+            marker.setIsPharmacyOpen(entity.getPharmacyOpen());
+            marker.setIsDuty(entity.getDuty());
             marker.setLatitude(entity.getLatitude());
             marker.setLongitude(entity.getLongitude());
             marker.setFacebookUri(entity.getFacebookUri());
@@ -91,9 +82,12 @@ public class MarkerServiceImpl implements MarkerService {
 
     @Override
     public ResponseEntity<Marker> register(@RequestBody Marker marker) {
-        MarkerEntity markerEntity = new MarkerEntity(marker.getName(), marker.getAddress(), marker.getDescription(), marker.getId(), marker.getOpeningTime(), marker.getIsOpen(), marker.getHasPharmacy(), marker.getPharmacyOpeningTime(), marker.getIsPharmacyOpen(), marker.getIsDuty(), marker.getType(), marker.getWebUri(), marker.getPhones(), marker.getFacebookUri(), marker.getImageUri(), marker.getLatitude(), marker.getLongitude());
-        markerRepository.save((Iterable<Marker>) markerEntity);
-        return (ResponseEntity<Marker>) markerRepository;
+        MarkerEntity markerEntity = new MarkerEntity(marker.getName(), marker.getAddress(), marker.getDescription(), marker.getId(), marker.getIsOpen(), marker.getHasPharmacy(), marker.getIsPharmacyOpen(), marker.getIsDuty(), marker.getType(), marker.getWebUri(), marker.getPhones(), marker.getFacebookUri(), marker.getImageUri(), marker.getLatitude(), marker.getLongitude());
+        MarkerEntity entity = markerRepository.save(markerEntity);
+
+        Marker savedMarker = new Marker();
+        savedMarker.setId(markerEntity.getId());
+        return ResponseEntity.ok(savedMarker);
     }
 
     @Override
@@ -104,12 +98,10 @@ public class MarkerServiceImpl implements MarkerService {
                 marker.setId(updatedMarker.getId());
                 marker.setAddress(updatedMarker.getAddress());
                 marker.setDescription(updatedMarker.getDescription());
-                marker.setOpeningTime(updatedMarker.getOpeningTime());
                 marker.setIsOpen(updatedMarker.getIsOpen());
                 marker.setPhones(updatedMarker.getPhones());
                 marker.setHasPharmacy(updatedMarker.getHasPharmacy());
                 marker.setIsPharmacyOpen(updatedMarker.getIsPharmacyOpen());
-                marker.setPharmacyOpeningTime(updatedMarker.getPharmacyOpeningTime());
                 marker.setIsDuty(updatedMarker.getIsDuty());
                 marker.setLatitude(updatedMarker.getLatitude());
                 marker.setLongitude(updatedMarker.getLongitude());
@@ -121,6 +113,6 @@ public class MarkerServiceImpl implements MarkerService {
 
             }
         }
-        return (ResponseEntity<Void>) markers;
+        return ResponseEntity.ok().build();
     }
 }

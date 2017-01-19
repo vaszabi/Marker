@@ -1,7 +1,9 @@
 D:\GitHub\marker\marker\src\main\java\hu\wup\wuppadavans\model\Marker.java
+D:\GitHub\marker\marker\src\main\java\hu\wup\wuppadavans\dto\MarkerDto.java
 D:\GitHub\marker\marker\src\main\java\hu\wup\wuppadavans\controller\MarkerApi.java
 D:\GitHub\marker\marker\src\main\java\hu\wup\wuppadavans\service\MarkerService.java
 D:\GitHub\marker\marker\src\main\java\hu\wup\wuppadavans\service\impl\MarkerServiceImpl.java
 D:\GitHub\marker\marker\src\main\java\hu\wup\wuppadavans\Application.java
+D:\GitHub\marker\marker\src\main\java\hu\wup\wuppadavans\controller\impl\MarkerController.java
 D:\GitHub\marker\marker\src\main\java\hu\wup\wuppadavans\entity\MarkerEntity.java
 D:\GitHub\marker\marker\src\main\java\hu\wup\wuppadavans\repository\MarkerRepository.java

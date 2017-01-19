@@ -1,9 +1,6 @@
 package hu.wup.wuppadavans.model;
 
 import java.util.Objects;
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class Marker {
 
@@ -14,12 +11,10 @@ public class Marker {
     private String name = null;
     private String description = null;
     private String address = null;
-    private List<String> phones = new ArrayList<String>();
+    private String phones = null;
     private String webUri = null;
     private String facebookUri = null;
     private String imageUri = null;
-    private List<String> openingTime = new ArrayList<String>();
-    private List<String> pharmacyOpeningTime = new ArrayList<String>();
     private Boolean hasPharmacy = null;
     private Boolean isPharmacyOpen = null;
     private Boolean isOpen = null;
@@ -138,17 +133,16 @@ public class Marker {
 
     /**
      **/
-    public Marker phones(List<String> phones) {
+    public Marker phones(String phones) {
         this.phones = phones;
         return this;
     }
 
-
-    public List<String> getPhones() {
+    public String getPhones() {
         return phones;
     }
 
-    public void setPhones(List<String> phones) {
+    public void setPhones(String phones) {
         this.phones = phones;
     }
 
@@ -202,38 +196,7 @@ public class Marker {
 
     /**
      **/
-    public Marker openingTime(List<String> openingTime) {
-        this.openingTime = openingTime;
-        return this;
-    }
 
-
-    public List<String> getOpeningTime() {
-        return openingTime;
-    }
-
-    public void setOpeningTime(List<String> openingTime) {
-        this.openingTime = openingTime;
-    }
-
-    /**
-     **/
-    public Marker pharmacyOpeningTime(List<String> pharmacyOpeningTime) {
-        this.pharmacyOpeningTime = pharmacyOpeningTime;
-        return this;
-    }
-
-
-    public List<String> getPharmacyOpeningTime() {
-        return pharmacyOpeningTime;
-    }
-
-    public void setPharmacyOpeningTime(List<String> pharmacyOpeningTime) {
-        this.pharmacyOpeningTime = pharmacyOpeningTime;
-    }
-
-    /**
-     **/
     public Marker hasPharmacy(Boolean hasPharmacy) {
         this.hasPharmacy = hasPharmacy;
         return this;
@@ -317,8 +280,6 @@ public class Marker {
                 Objects.equals(webUri, marker.webUri) &&
                 Objects.equals(facebookUri, marker.facebookUri) &&
                 Objects.equals(imageUri, marker.imageUri) &&
-                Objects.equals(openingTime, marker.openingTime) &&
-                Objects.equals(pharmacyOpeningTime, marker.pharmacyOpeningTime) &&
                 Objects.equals(hasPharmacy, marker.hasPharmacy) &&
                 Objects.equals(isPharmacyOpen, marker.isPharmacyOpen) &&
                 Objects.equals(isOpen, marker.isOpen) &&
@@ -327,7 +288,7 @@ public class Marker {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, type, latitude, longitude, name, description, address, phones, webUri, facebookUri, imageUri, openingTime, pharmacyOpeningTime, hasPharmacy, isPharmacyOpen, isOpen, isDuty);
+        return Objects.hash(id, type, latitude, longitude, name, description, address, phones, webUri, facebookUri, imageUri, hasPharmacy, isPharmacyOpen, isOpen, isDuty);
     }
 
     @Override
@@ -346,8 +307,6 @@ public class Marker {
         sb.append("    webUri: ").append(toIndentedString(webUri)).append("\n");
         sb.append("    facebookUri: ").append(toIndentedString(facebookUri)).append("\n");
         sb.append("    imageUri: ").append(toIndentedString(imageUri)).append("\n");
-        sb.append("    openingTime: ").append(toIndentedString(openingTime)).append("\n");
-        sb.append("    pharmacyOpeningTime: ").append(toIndentedString(pharmacyOpeningTime)).append("\n");
         sb.append("    hasPharmacy: ").append(toIndentedString(hasPharmacy)).append("\n");
         sb.append("    isPharmacyOpen: ").append(toIndentedString(isPharmacyOpen)).append("\n");
         sb.append("    isOpen: ").append(toIndentedString(isOpen)).append("\n");

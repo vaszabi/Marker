@@ -8,59 +8,41 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-public class MarkerApi {
+public interface MarkerApi {
 
-    private MarkerService markerService;
-
-    protected MarkerApi() {}
 
     @Autowired
-    public void setMarkerService(MarkerService markerService) {
-
-        this.markerService = markerService;
-
-    }
+    public void setMarkerService(MarkerService markerService);
 
 
     @RequestMapping(value = "/hu/wup/wuppadavans/model/{markerId}",
             produces = {"application/json"},
             method = RequestMethod.DELETE)
-    ResponseEntity<Void> deletemarkerById(@PathVariable("markerId") Long markerId) {
-        return markerService.deletemarkerById(markerId);
-    }
+    ResponseEntity<Void> deletemarkerById(@PathVariable("markerId") Long markerId);
 
 
     @RequestMapping(value = "/hu/wup/wuppadavans/model",
             produces = {"application/json"},
             method = RequestMethod.GET)
-    ResponseEntity<List<Marker>> loadAllmarker() {
-        return markerService.loadAllmarker();
-    }
+    ResponseEntity<List<Marker>> loadAllmarker();
 
 
     @RequestMapping(value = "/hu/wup/wuppadavans/model/{markerId}",
             produces = {"application/json"},
             method = RequestMethod.GET)
-    ResponseEntity<Marker> loadmarkerById(@PathVariable("markerId") Long markerId) {
-        return markerService.loadmarkerById(markerId);
-    }
+    ResponseEntity<Marker> loadmarkerById(@PathVariable("markerId") Long markerId);
 
 
     @RequestMapping(value = "/hu/wup/wuppadavans/model",
             produces = {"application/json"},
             consumes = {"application/json"},
             method = RequestMethod.POST)
-    ResponseEntity<Marker> register(@RequestBody Marker marker) {
-        return markerService.register(marker);
-    }
+    ResponseEntity<Marker> register(@RequestBody Marker marker);
 
 
     @RequestMapping(value = "/hu/wup/wuppadavans/model/{markerId}",
             produces = {"application/json"},
             method = RequestMethod.POST)
-    ResponseEntity<Void> updatemarker(@RequestBody Marker marker, @PathVariable("markerId") Long markerId) {
-        return markerService.updatemarker(marker, markerId);
-    }
+    ResponseEntity<Void> updatemarker(@RequestBody Marker marker, @PathVariable("markerId") Long markerId);
 
 }

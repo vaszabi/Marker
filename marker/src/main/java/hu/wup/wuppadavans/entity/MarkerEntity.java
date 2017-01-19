@@ -1,18 +1,17 @@
 package hu.wup.wuppadavans.entity;
 
-
-import hu.wup.wuppadavans.model.Marker;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "mark")
+@Table(name = "markers")
 public class MarkerEntity {
 
+
+    public static final String ID_COLUMN_NAME = "markerentity_id";
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = ID_COLUMN_NAME)
     private Long id = null;
     private String type = null;
     private Double latitude = null;
@@ -20,21 +19,25 @@ public class MarkerEntity {
     private String name = null;
     private String description = null;
     private String address = null;
-    private List<String> phones = new ArrayList<String>();
+    private String phones = null;
     private String webUri = null;
     private String facebookUri = null;
     private String imageUri = null;
-    private List<String> openingTime = new ArrayList<String>();
-    private List<String> pharmacyOpeningTime = new ArrayList<String>();
     private Boolean hasPharmacy = null;
     private Boolean isPharmacyOpen = null;
     private Boolean isOpen = null;
     private Boolean isDuty = null;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mark")
-    private List<MarkerEntity> userEntityList;
+    public void setPhones(String phones) {
+        this.phones = phones;
+    }
 
-    public MarkerEntity(String type, Double latitude, Double longitude, String name, String description, String address, List<String> phones, String webUri, String facebookUri, String imageUri, List<String> openingTime, List<String> pharmacyOpeningTime, Boolean hasPharmacy, Boolean isPharmacyOpen, Boolean isOpen, Boolean isDuty, List<MarkerEntity> userEntityList) {
+    public String getPhones() {
+        return phones;
+    }
+
+    public MarkerEntity(Long id, String type, Double latitude, Double longitude, String name, String description, String address, String phones, String webUri, String facebookUri, String imageUri, Boolean hasPharmacy, Boolean isPharmacyOpen, Boolean isOpen, Boolean isDuty) {
+        this.id = id;
         this.type = type;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -45,18 +48,20 @@ public class MarkerEntity {
         this.webUri = webUri;
         this.facebookUri = facebookUri;
         this.imageUri = imageUri;
-        this.openingTime = openingTime;
-        this.pharmacyOpeningTime = pharmacyOpeningTime;
         this.hasPharmacy = hasPharmacy;
         this.isPharmacyOpen = isPharmacyOpen;
         this.isOpen = isOpen;
         this.isDuty = isDuty;
-        this.userEntityList = userEntityList;
+    }
 
+    protected MarkerEntity() {}
+
+    public MarkerEntity(String name, String address, String description, Long id, Boolean isOpen, Boolean hasPharmacy,  Boolean isPharmacyOpen, Boolean isDuty, String type, String webUri, String phones, String facebookUri, String imageUri, Double latitude, Double longitude) {
 
     }
 
-    public MarkerEntity(String name, String address, String description, Long id, List<String> openingTime, Boolean isOpen, Boolean hasPharmacy, List<String> pharmacyOpeningTime, Boolean isPharmacyOpen, Boolean isDuty, String type, String webUri, List<String> phones, String facebookUri, String imageUri, Double latitude, Double longitude) {
+    public static String getIdColumnName() {
+        return ID_COLUMN_NAME;
     }
 
     public Long getId() {
@@ -115,13 +120,6 @@ public class MarkerEntity {
         this.address = address;
     }
 
-    public List<String> getPhones() {
-        return phones;
-    }
-
-    public void setPhones(List<String> phones) {
-        this.phones = phones;
-    }
 
     public String getWebUri() {
         return webUri;
@@ -145,22 +143,6 @@ public class MarkerEntity {
 
     public void setImageUri(String imageUri) {
         this.imageUri = imageUri;
-    }
-
-    public List<String> getOpeningTime() {
-        return openingTime;
-    }
-
-    public void setOpeningTime(List<String> openingTime) {
-        this.openingTime = openingTime;
-    }
-
-    public List<String> getPharmacyOpeningTime() {
-        return pharmacyOpeningTime;
-    }
-
-    public void setPharmacyOpeningTime(List<String> pharmacyOpeningTime) {
-        this.pharmacyOpeningTime = pharmacyOpeningTime;
     }
 
     public Boolean getHasPharmacy() {
@@ -195,11 +177,5 @@ public class MarkerEntity {
         isDuty = duty;
     }
 
-    public List<MarkerEntity> getUserEntityList() {
-        return userEntityList;
-    }
 
-    public void setUserEntityList(List<MarkerEntity> userEntityList) {
-        this.userEntityList = userEntityList;
-    }
 }
