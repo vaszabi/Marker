@@ -1,21 +1,20 @@
 package hu.wup.wuppadavans.service;
 
+import hu.wup.wuppadavans.dto.MarkerDto;
 import hu.wup.wuppadavans.model.Marker;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 public interface MarkerService {
 
-    ResponseEntity<Void> deletemarkerById(@PathVariable("markerId") Long markerId);
+    void deletemarkerById(Long markerDtoId);
 
-    ResponseEntity<List<Marker>> loadAllmarker();
+    List<MarkerDto> loadAllmarker();
 
-    ResponseEntity<Marker> loadmarkerById(@PathVariable("markerId") Long markerId);
+    MarkerDto loadmarkerById(Long markerDtoId);
 
-    ResponseEntity<Marker> register(@RequestBody Marker marker);
+    MarkerDto register(MarkerDto markerDto);
 
-    ResponseEntity<Void> updatemarker(@RequestBody Marker updatedMarker, @PathVariable("markerId") Long markerId);
+    void updatemarker(MarkerDto updatedMarkerDto, Long markerDtoId);
 }

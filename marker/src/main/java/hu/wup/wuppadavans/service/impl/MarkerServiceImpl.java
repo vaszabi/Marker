@@ -1,14 +1,10 @@
 package hu.wup.wuppadavans.service.impl;
 
+import hu.wup.wuppadavans.dto.MarkerDto;
 import hu.wup.wuppadavans.entity.MarkerEntity;
-import hu.wup.wuppadavans.model.Marker;
 import hu.wup.wuppadavans.repository.MarkerRepository;
 import hu.wup.wuppadavans.service.MarkerService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,102 +13,108 @@ import java.util.List;
 public class MarkerServiceImpl implements MarkerService {
 
     private MarkerRepository markerRepository;
-    private List<Marker> markers;
+    //private List<MarkerDto> markerDtos;
 
 
     public MarkerServiceImpl() {
-        this.markers = new ArrayList();
+     //   this.markerDtos = new ArrayList<>();
     }
 
 
     @Override
-    public ResponseEntity<Void> deletemarkerById(@PathVariable("markerId") Long markerId) {
-        List<Marker> temp = new ArrayList<Marker>();
-        for (Marker marker : temp) {
-            if (!markerId.equals(marker.getId())) {
-                temp.add(marker);
-            }
-        }
-        markers = temp;
-        return (ResponseEntity<Void>) markers;
+    public void deletemarkerById(Long markerDtoId) {
+
+        markerRepository.delete(markerDtoId);
     }
 
 
     @Override
-    public ResponseEntity<List<Marker>> loadAllmarker() {
-        List<Marker> markerElements = new ArrayList();
+    public List<MarkerDto> loadAllmarker() {
+        List<MarkerDto> markerElements = new ArrayList<>();
         List<MarkerEntity> markerEntities = markerRepository.findAll();
         for (MarkerEntity entity : markerEntities) {
-            Marker marker = new Marker();
-            marker.setName(entity.getName());
-            marker.setId(entity.getId());
-            marker.setAddress(entity.getAddress());
-            marker.setDescription(entity.getDescription());
-            marker.setIsOpen(entity.getOpen());
-            marker.setPhones(entity.getPhones());
-            marker.setHasPharmacy(entity.getHasPharmacy());
-            marker.setIsPharmacyOpen(entity.getPharmacyOpen());
-            marker.setIsDuty(entity.getDuty());
-            marker.setLatitude(entity.getLatitude());
-            marker.setLongitude(entity.getLongitude());
-            marker.setFacebookUri(entity.getFacebookUri());
-            marker.setImageUri(entity.getImageUri());
-            marker.setType(entity.getType());
-            marker.setWebUri(entity.getWebUri());
+            MarkerDto markerDto = new MarkerDto();
+            markerDto.setName(entity.getName());
+            markerDto.setId(entity.getId());
+            markerDto.setAddress(entity.getAddress());
+            markerDto.setDescription(entity.getDescription());
+            markerDto.setOpen(entity.getOpen());
+            markerDto.setPhones(entity.getPhones());
+            markerDto.setHasPharmacy(entity.getHasPharmacy());
+            markerDto.setPharmacyOpen(entity.getPharmacyOpen());
+            markerDto.setDuty(entity.getDuty());
+            markerDto.setLatitude(entity.getLatitude());
+            markerDto.setLongitude(entity.getLongitude());
+            markerDto.setFacebookUri(entity.getFacebookUri());
+            markerDto.setImageUri(entity.getImageUri());
+            markerDto.setType(entity.getType());
+            markerDto.setWebUri(entity.getWebUri());
 
 
-            markerElements.add(marker);
+            markerElements.add(markerDto);
         }
-        return (ResponseEntity<List<Marker>>) markerElements;
+        return markerElements;
     }
 
     @Override
-    public ResponseEntity<Marker> loadmarkerById(@PathVariable("markerId") Long markerId) {
+    public MarkerDto loadmarkerById(Long markerDtoId) {
 
-        for (Marker marker : markers) {
-            if (markerId.equals(marker.getId())) {
-                markerRepository.findOne(markerId);
-                return (ResponseEntity<Marker>) markers;
-            }
-        }
+        MarkerEntity entity = markerRepository.findOne(markerDtoId);
+        MarkerDto markerDto = new MarkerDto();
 
-        return null;
+        markerDto.setName(entity.getName());
+        markerDto.setId(entity.getId());
+        markerDto.setAddress(entity.getAddress());
+        markerDto.setDescription(entity.getDescription());
+        markerDto.setOpen(entity.getOpen());
+        markerDto.setPhones(entity.getPhones());
+        markerDto.setHasPharmacy(entity.getHasPharmacy());
+        markerDto.setPharmacyOpen(entity.getPharmacyOpen());
+        markerDto.setDuty(entity.getDuty());
+        markerDto.setLatitude(entity.getLatitude());
+        markerDto.setLongitude(entity.getLongitude());
+        markerDto.setFacebookUri(entity.getFacebookUri());
+        markerDto.setImageUri(entity.getImageUri());
+        markerDto.setType(entity.getType());
+        markerDto.setWebUri(entity.getWebUri());
+
+
+        return markerDto;
+
     }
 
 
     @Override
-    public ResponseEntity<Marker> register(@RequestBody Marker marker) {
-        MarkerEntity markerEntity = new MarkerEntity(marker.getName(), marker.getAddress(), marker.getDescription(), marker.getId(), marker.getIsOpen(), marker.getHasPharmacy(), marker.getIsPharmacyOpen(), marker.getIsDuty(), marker.getType(), marker.getWebUri(), marker.getPhones(), marker.getFacebookUri(), marker.getImageUri(), marker.getLatitude(), marker.getLongitude());
-        MarkerEntity entity = markerRepository.save(markerEntity);
+    public MarkerDto register(MarkerDto markerDto) {
+        MarkerEntity markerEntity = new MarkerEntity(markerDto.getName(), markerDto.getAddress(), markerDto.getDescription(), markerDto.getId(), markerDto.getOpen(), markerDto.getHasPharmacy(), markerDto.getPharmacyOpen(), markerDto.getDuty(), markerDto.getType(), markerDto.getWebUri(), markerDto.getPhones(), markerDto.getFacebookUri(), markerDto.getImageUri(), markerDto.getLatitude(), markerDto.getLongitude());
+        MarkerEntity savedData = markerRepository.save(markerEntity);
 
-        Marker savedMarker = new Marker();
-        savedMarker.setId(markerEntity.getId());
-        return ResponseEntity.ok(savedMarker);
+        MarkerDto savedMarkerDto = new MarkerDto();
+        savedMarkerDto.setId(savedData.getId());
+        return savedMarkerDto;
     }
 
     @Override
-    public ResponseEntity<Void> updatemarker(@RequestBody Marker updatedMarker, @PathVariable("markerId") Long markerId) {
-        for (Marker marker : markers) {
-            if (markerId.equals(marker.getId())) {
-                marker.setName(updatedMarker.getName());
-                marker.setId(updatedMarker.getId());
-                marker.setAddress(updatedMarker.getAddress());
-                marker.setDescription(updatedMarker.getDescription());
-                marker.setIsOpen(updatedMarker.getIsOpen());
-                marker.setPhones(updatedMarker.getPhones());
-                marker.setHasPharmacy(updatedMarker.getHasPharmacy());
-                marker.setIsPharmacyOpen(updatedMarker.getIsPharmacyOpen());
-                marker.setIsDuty(updatedMarker.getIsDuty());
-                marker.setLatitude(updatedMarker.getLatitude());
-                marker.setLongitude(updatedMarker.getLongitude());
-                marker.setFacebookUri(updatedMarker.getFacebookUri());
-                marker.setImageUri(updatedMarker.getImageUri());
-                marker.setType(updatedMarker.getType());
-                marker.setWebUri(updatedMarker.getWebUri());
+    public void updatemarker(MarkerDto updatedMarkerDto, Long markerDtoId) {
+        MarkerEntity entity = markerRepository.findOne(markerDtoId);
 
+        entity.setName(updatedMarkerDto.getName());
+        entity.setId(updatedMarkerDto.getId());
+        entity.setAddress(updatedMarkerDto.getAddress());
+        entity.setDescription(updatedMarkerDto.getDescription());
+        entity.setOpen(updatedMarkerDto.getOpen());
+        entity.setPhones(updatedMarkerDto.getPhones());
+        entity.setHasPharmacy(updatedMarkerDto.getHasPharmacy());
+        entity.setPharmacyOpen(updatedMarkerDto.getPharmacyOpen());
+        entity.setDuty(updatedMarkerDto.getDuty());
+        entity.setLatitude(updatedMarkerDto.getLatitude());
+        entity.setLongitude(updatedMarkerDto.getLongitude());
+        entity.setFacebookUri(updatedMarkerDto.getFacebookUri());
+        entity.setImageUri(updatedMarkerDto.getImageUri());
+        entity.setType(updatedMarkerDto.getType());
+        entity.setWebUri(updatedMarkerDto.getWebUri());
 
-            }
-        }
-        return ResponseEntity.ok().build();
+        markerRepository.save(entity);
     }
 }
+

@@ -1,8 +1,6 @@
 package hu.wup.wuppadavans.dto;
 
-/**
- * Created by szvarga on 2017. 01. 19..
- */
+
 public class MarkerDto {
 
     private Long id;
@@ -20,7 +18,14 @@ public class MarkerDto {
     private Boolean isPharmacyOpen;
     private Boolean isOpen;
     private Boolean isDuty;
-    
+
+    public MarkerDto(String name, String address, String description, Long id, Boolean isOpen, Boolean hasPharmacy, Boolean isPharmacyOpen, Boolean isDuty, String type, String webUri, String phones, String facebookUri, String imageUri, Double latitude, Double longitude) {
+    }
+
+    public MarkerDto() {
+
+    }
+
 
     public Long getId() {
         return id;
