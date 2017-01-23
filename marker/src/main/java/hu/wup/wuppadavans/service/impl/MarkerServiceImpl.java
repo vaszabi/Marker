@@ -90,7 +90,21 @@ public class MarkerServiceImpl implements MarkerService {
         MarkerEntity savedData = markerRepository.save(markerEntity);
 
         MarkerDto savedMarkerDto = new MarkerDto();
+        savedMarkerDto.setName(savedData.getName());
         savedMarkerDto.setId(savedData.getId());
+        savedMarkerDto.setAddress(savedData.getAddress());
+        savedMarkerDto.setDescription(savedData.getDescription());
+        savedMarkerDto.setOpen(savedData.getOpen());
+        savedMarkerDto.setPhones(savedData.getPhones());
+        savedMarkerDto.setHasPharmacy(savedData.getHasPharmacy());
+        savedMarkerDto.setPharmacyOpen(savedData.getPharmacyOpen());
+        savedMarkerDto.setDuty(savedData.getDuty());
+        savedMarkerDto.setLatitude(savedData.getLatitude());
+        savedMarkerDto.setLongitude(savedData.getLongitude());
+        savedMarkerDto.setFacebookUri(savedData.getFacebookUri());
+        savedMarkerDto.setImageUri(savedData.getImageUri());
+        savedMarkerDto.setType(savedData.getType());
+        savedMarkerDto.setWebUri(savedData.getWebUri());
         return savedMarkerDto;
     }
 
@@ -99,7 +113,7 @@ public class MarkerServiceImpl implements MarkerService {
         MarkerEntity entity = markerRepository.findOne(markerDtoId);
 
         entity.setName(updatedMarkerDto.getName());
-        entity.setId(updatedMarkerDto.getId());
+        //entity.setId(updatedMarkerDto.getId());
         entity.setAddress(updatedMarkerDto.getAddress());
         entity.setDescription(updatedMarkerDto.getDescription());
         entity.setOpen(updatedMarkerDto.getOpen());

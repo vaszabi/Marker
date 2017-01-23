@@ -93,10 +93,26 @@ public class MarkerController implements MarkerApi {
 
     @Override
     public ResponseEntity<Marker> register(Marker marker) {
-        MarkerDto markerDto = new MarkerDto(marker.getName(), marker.getAddress(), marker.getDescription(), marker.getId(), marker.getIsOpen(), marker.getHasPharmacy(), marker.getIsPharmacyOpen(), marker.getIsDuty(), marker.getType(), marker.getWebUri(), marker.getPhones(), marker.getFacebookUri(), marker.getImageUri(), marker.getLatitude(), marker.getLongitude());
+        MarkerDto markerDto = new MarkerDto();
 
         Marker savedMarker = new Marker();
-        savedMarker.setId(markerDto.getId());
+        markerDto.setName(savedMarker.getName());
+        markerDto.setId(savedMarker.getId());
+        markerDto.setAddress(savedMarker.getAddress());
+        markerDto.setDescription(savedMarker.getDescription());
+        markerDto.setOpen(savedMarker.getIsOpen());
+        markerDto.setPhones(savedMarker.getPhones());
+        markerDto.setHasPharmacy(savedMarker.getHasPharmacy());
+        markerDto.setPharmacyOpen(savedMarker.getIsPharmacyOpen());
+        markerDto.setDuty(savedMarker.getIsDuty());
+        markerDto.setLatitude(savedMarker.getLatitude());
+        markerDto.setLongitude(savedMarker.getLongitude());
+        markerDto.setFacebookUri(savedMarker.getFacebookUri());
+        markerDto.setImageUri(savedMarker.getImageUri());
+        markerDto.setType(savedMarker.getType());
+        markerDto.setWebUri(savedMarker.getWebUri());
+
+        markerService.register(markerDto);
 
         return ResponseEntity.ok(savedMarker);
     }
@@ -104,30 +120,28 @@ public class MarkerController implements MarkerApi {
     @Override
     public ResponseEntity<Void> updatemarker(Marker updatedMarker, Long markerId) {
 
-        List<MarkerDto> markerDtoList = markerService.loadAllmarker();
+        MarkerDto markerDto = markerService.loadmarkerById(markerId);
+
+        markerDto.setName(updatedMarker.getName());
+        //markerDto.setId(updatedMarker.getId());
+        markerDto.setAddress(updatedMarker.getAddress());
+        markerDto.setDescription(updatedMarker.getDescription());
+        markerDto.setOpen(updatedMarker.getIsOpen());
+        markerDto.setPhones(updatedMarker.getPhones());
+        markerDto.setHasPharmacy(updatedMarker.getHasPharmacy());
+        markerDto.setPharmacyOpen(updatedMarker.getIsPharmacyOpen());
+        markerDto.setDuty(updatedMarker.getIsDuty());
+        markerDto.setLatitude(updatedMarker.getLatitude());
+        markerDto.setLongitude(updatedMarker.getLongitude());
+        markerDto.setFacebookUri(updatedMarker.getFacebookUri());
+        markerDto.setImageUri(updatedMarker.getImageUri());
+        markerDto.setType(updatedMarker.getType());
+        markerDto.setWebUri(updatedMarker.getWebUri());
 
 
-        for (MarkerDto markerDto : markerDtoList) {
-            if (markerId.equals(markerDto.getId())) {
+        markerService.updatemarker(markerDto, markerDto.getId());
 
-                markerDto.setName(updatedMarker.getName());
-                markerDto.setId(updatedMarker.getId());
-                markerDto.setAddress(updatedMarker.getAddress());
-                markerDto.setDescription(updatedMarker.getDescription());
-                markerDto.setOpen(updatedMarker.getIsOpen());
-                markerDto.setPhones(updatedMarker.getPhones());
-                markerDto.setHasPharmacy(updatedMarker.getHasPharmacy());
-                markerDto.setPharmacyOpen(updatedMarker.getIsPharmacyOpen());
-                markerDto.setDuty(updatedMarker.getIsDuty());
-                markerDto.setLatitude(updatedMarker.getLatitude());
-                markerDto.setLongitude(updatedMarker.getLongitude());
-                markerDto.setFacebookUri(updatedMarker.getFacebookUri());
-                markerDto.setImageUri(updatedMarker.getImageUri());
-                markerDto.setType(updatedMarker.getType());
-                markerDto.setWebUri(updatedMarker.getWebUri());
 
-            }
-        }
         return ResponseEntity.ok().build();
     }
 }

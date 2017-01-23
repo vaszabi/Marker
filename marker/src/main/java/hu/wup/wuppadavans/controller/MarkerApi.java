@@ -15,32 +15,32 @@ public interface MarkerApi {
     public void setMarkerService(MarkerService markerService);
 
 
-    @RequestMapping(value = "/hu/wup/wuppadavans/model/{markerId}",
+    @RequestMapping(value = "/marker/{markerId}",
             produces = {"application/json"},
             method = RequestMethod.DELETE)
     ResponseEntity<Void> deletemarkerById(@PathVariable("markerId") Long markerId);
 
 
-    @RequestMapping(value = "/hu/wup/wuppadavans/model",
+    @RequestMapping(value = "/marker",
             produces = {"application/json"},
             method = RequestMethod.GET)
     ResponseEntity<List<Marker>> loadAllmarker();
 
 
-    @RequestMapping(value = "/hu/wup/wuppadavans/model/{markerId}",
+    @RequestMapping(value = "/marker/{markerId}",
             produces = {"application/json"},
             method = RequestMethod.GET)
     ResponseEntity<Marker> loadmarkerById(@PathVariable("markerId") Long markerId);
 
 
-    @RequestMapping(value = "/hu/wup/wuppadavans/model",
+    @RequestMapping(value = "/marker",
             produces = {"application/json"},
             consumes = {"application/json"},
             method = RequestMethod.POST)
     ResponseEntity<Marker> register(@RequestBody Marker marker);
 
 
-    @RequestMapping(value = "/hu/wup/wuppadavans/model/{markerId}",
+    @RequestMapping(value = "/marker/{markerId}",
             produces = {"application/json"},
             method = RequestMethod.POST)
     ResponseEntity<Void> updatemarker(@RequestBody Marker marker, @PathVariable("markerId") Long markerId);
