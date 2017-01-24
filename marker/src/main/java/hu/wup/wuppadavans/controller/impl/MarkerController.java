@@ -4,6 +4,10 @@ import hu.wup.wuppadavans.controller.MarkerApi;
 import hu.wup.wuppadavans.dto.MarkerDto;
 import hu.wup.wuppadavans.model.Marker;
 import hu.wup.wuppadavans.service.MarkerService;
+<<<<<<< HEAD
+=======
+import hu.wup.wuppadavans.service.impl.MarkerServiceImpl;
+>>>>>>> a9134935e1eab4e189e5937bbecc0f4ead5387e3
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +20,10 @@ import java.util.List;
 @RestController
 public class MarkerController implements MarkerApi {
 
+<<<<<<< HEAD
     @Autowired
+=======
+>>>>>>> a9134935e1eab4e189e5937bbecc0f4ead5387e3
     private MarkerService markerService;
 
     protected MarkerController() {
