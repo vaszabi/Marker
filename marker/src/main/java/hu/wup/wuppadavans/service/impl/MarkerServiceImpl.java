@@ -4,6 +4,7 @@ import hu.wup.wuppadavans.dto.MarkerDto;
 import hu.wup.wuppadavans.entity.MarkerEntity;
 import hu.wup.wuppadavans.repository.MarkerRepository;
 import hu.wup.wuppadavans.service.MarkerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
 @Service
 public class MarkerServiceImpl implements MarkerService {
 
+    @Autowired
     private MarkerRepository markerRepository;
     //private List<MarkerDto> markerDtos;
 

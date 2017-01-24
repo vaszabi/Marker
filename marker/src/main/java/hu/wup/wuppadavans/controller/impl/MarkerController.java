@@ -5,7 +5,9 @@ import hu.wup.wuppadavans.dto.MarkerDto;
 import hu.wup.wuppadavans.model.Marker;
 import hu.wup.wuppadavans.service.MarkerService;
 import hu.wup.wuppadavans.service.impl.MarkerServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -15,15 +17,15 @@ import java.util.List;
 @RestController
 public class MarkerController implements MarkerApi {
 
-    private MarkerServiceImpl markerService = new MarkerServiceImpl();
+    private MarkerService markerService;
 
     protected MarkerController() {
 
     }
 
-    @Override
+    @Autowired
     public void setMarkerService(MarkerService markerService) {
-
+        this.markerService = markerService;
     }
 
     @Override
@@ -67,7 +69,7 @@ public class MarkerController implements MarkerApi {
     }
 
     @Override
-    public ResponseEntity<Marker> loadmarkerById(Long markerId) {
+    public ResponseEntity<Marker> loadmarkerById(@PathVariable("markerId") Long markerId) {
 
         MarkerDto markerDto = markerService.loadmarkerById(markerId);
         Marker marker = new Marker();

@@ -3,7 +3,7 @@
 #      hibernate: DEBUG
 # HTTP Server
 server:
-  port: 2222   # HTTP (Tomcat) port
+  port: 8080   # HTTP (Tomcat) port
 # Spring properties
 spring:
   application:
@@ -11,8 +11,8 @@ spring:
   datasource:
     url: jdbc:h2:~/test
     driverClassName: org.h2.Driver
-    username: test
-    password: test
+    username: "sa"
+    password: ""
   jpa:
     generate-ddl: true
     show-sql: true
