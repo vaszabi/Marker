@@ -69,7 +69,7 @@ public class MarkerController implements MarkerApi {
     }
 
     @Override
-    public ResponseEntity<Marker> loadmarkerById(@PathVariable("markerId") Long markerId) {
+    public ResponseEntity<Marker> loadmarkerById(Long markerId) {
 
         MarkerDto markerDto = markerService.loadmarkerById(markerId);
         Marker marker = new Marker();
@@ -97,26 +97,24 @@ public class MarkerController implements MarkerApi {
     public ResponseEntity<Marker> register(Marker marker) {
         MarkerDto markerDto = new MarkerDto();
 
-        Marker savedMarker = new Marker();
-        markerDto.setName(savedMarker.getName());
-        markerDto.setId(savedMarker.getId());
-        markerDto.setAddress(savedMarker.getAddress());
-        markerDto.setDescription(savedMarker.getDescription());
-        markerDto.setOpen(savedMarker.getIsOpen());
-        markerDto.setPhones(savedMarker.getPhones());
-        markerDto.setHasPharmacy(savedMarker.getHasPharmacy());
-        markerDto.setPharmacyOpen(savedMarker.getIsPharmacyOpen());
-        markerDto.setDuty(savedMarker.getIsDuty());
-        markerDto.setLatitude(savedMarker.getLatitude());
-        markerDto.setLongitude(savedMarker.getLongitude());
-        markerDto.setFacebookUri(savedMarker.getFacebookUri());
-        markerDto.setImageUri(savedMarker.getImageUri());
-        markerDto.setType(savedMarker.getType());
-        markerDto.setWebUri(savedMarker.getWebUri());
+        markerDto.setName(marker.getName());
+        markerDto.setId(marker.getId());
+        markerDto.setAddress(marker.getAddress());
+        markerDto.setDescription(marker.getDescription());
+        markerDto.setOpen(marker.getIsOpen());
+        markerDto.setPhones(marker.getPhones());
+        markerDto.setHasPharmacy(marker.getHasPharmacy());
+        markerDto.setPharmacyOpen(marker.getIsPharmacyOpen());
+        markerDto.setDuty(marker.getIsDuty());
+        markerDto.setLongitude(marker.getLongitude());
+        markerDto.setFacebookUri(marker.getFacebookUri());
+        markerDto.setImageUri(marker.getImageUri());
+        markerDto.setType(marker.getType());
+        markerDto.setWebUri(marker.getWebUri());
 
         markerService.register(markerDto);
 
-        return ResponseEntity.ok(savedMarker);
+        return ResponseEntity.ok(marker);
     }
 
     @Override

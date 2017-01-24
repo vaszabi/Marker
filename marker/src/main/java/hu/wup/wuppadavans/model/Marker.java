@@ -4,21 +4,21 @@ import java.util.Objects;
 
 public class Marker {
 
-    private Long id = null;
-    private String type = null;
-    private Double latitude = null;
-    private Double longitude = null;
-    private String name = null;
-    private String description = null;
-    private String address = null;
-    private String phones = null;
-    private String webUri = null;
-    private String facebookUri = null;
-    private String imageUri = null;
-    private Boolean hasPharmacy = null;
-    private Boolean isPharmacyOpen = null;
-    private Boolean isOpen = null;
-    private Boolean isDuty = null;
+    private Long id;
+    private String type;
+    private Double latitude;
+    private Double longitude;
+    private String name;
+    private String description;
+    private String address;
+    private String phones;
+    private String webUri;
+    private String facebookUri;
+    private String imageUri;
+    private Boolean hasPharmacy;
+    private Boolean isPharmacyOpen;
+    private Boolean isOpen;
+    private Boolean isDuty;
 
     /**
      **/

@@ -2,6 +2,7 @@ package hu.wup.wuppadavans.service.impl;
 
 import hu.wup.wuppadavans.dto.MarkerDto;
 import hu.wup.wuppadavans.entity.MarkerEntity;
+import hu.wup.wuppadavans.repository.MarkerRepository;
 import hu.wup.wuppadavans.service.MarkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -106,6 +107,9 @@ public class MarkerServiceImpl implements MarkerService {
         savedMarkerDto.setImageUri(savedData.getImageUri());
         savedMarkerDto.setType(savedData.getType());
         savedMarkerDto.setWebUri(savedData.getWebUri());
+
+
+
         return savedMarkerDto;
     }
 
