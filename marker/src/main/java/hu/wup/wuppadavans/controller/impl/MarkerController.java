@@ -7,6 +7,7 @@ import hu.wup.wuppadavans.service.MarkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class MarkerController implements MarkerApi {
     }
 
     @Override
-    public ResponseEntity<Void> deletemarkerById(Long markerId) {
+    public ResponseEntity<Void> deletemarkerById(@PathVariable Long markerId) {
 
         markerService.deletemarkerById(markerId);
 
@@ -69,7 +70,7 @@ public class MarkerController implements MarkerApi {
     }
 
     @Override
-    public ResponseEntity<Marker> loadmarkerById(Long markerId) {
+    public ResponseEntity<Marker> loadmarkerById(@PathVariable Long markerId) {
 
         MarkerDto markerDto = markerService.loadmarkerById(markerId);
         Marker marker = new Marker();
@@ -94,7 +95,7 @@ public class MarkerController implements MarkerApi {
     }
 
     @Override
-    public ResponseEntity<Marker> register(Marker marker) {
+    public ResponseEntity<Marker> register(@RequestBody Marker marker) {
         MarkerDto markerDto = new MarkerDto();
 
         markerDto.setName(marker.getName());
@@ -118,7 +119,7 @@ public class MarkerController implements MarkerApi {
     }
 
     @Override
-    public ResponseEntity<Void> updatemarker(Marker updatedMarker, Long markerId) {
+    public ResponseEntity<Void> updatemarker(@RequestBody Marker updatedMarker,@PathVariable Long markerId) {
 
         MarkerDto markerDto = markerService.loadmarkerById(markerId);
 
