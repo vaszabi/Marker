@@ -54,7 +54,7 @@ public class MarkerEntity {
         this.isDuty = isDuty;
     }
 
-    protected MarkerEntity() {}
+    public MarkerEntity() {}
 
     public MarkerEntity(String name, String address, String description, Long id, Boolean isOpen, Boolean hasPharmacy,  Boolean isPharmacyOpen, Boolean isDuty, String type, String webUri, String phones, String facebookUri, String imageUri, Double latitude, Double longitude) {
 

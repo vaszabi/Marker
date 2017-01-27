@@ -88,7 +88,23 @@ public class MarkerServiceImpl implements MarkerService {
 
     @Override
     public MarkerDto register(MarkerDto markerDto) {
-        MarkerEntity markerEntity = new MarkerEntity(markerDto.getName(), markerDto.getAddress(), markerDto.getDescription(), markerDto.getId(), markerDto.getOpen(), markerDto.getHasPharmacy(), markerDto.getPharmacyOpen(), markerDto.getDuty(), markerDto.getType(), markerDto.getWebUri(), markerDto.getPhones(), markerDto.getFacebookUri(), markerDto.getImageUri(), markerDto.getLatitude(), markerDto.getLongitude());
+        MarkerEntity markerEntity = new MarkerEntity();
+        markerEntity.setName(markerDto.getName());
+        markerEntity.setId(markerDto.getId());
+        markerEntity.setAddress(markerDto.getAddress());
+        markerEntity.setDescription(markerDto.getDescription());
+        markerEntity.setOpen(markerDto.getOpen());
+        markerEntity.setPhones(markerDto.getPhones());
+        markerEntity.setHasPharmacy(markerDto.getHasPharmacy());
+        markerEntity.setPharmacyOpen(markerDto.getPharmacyOpen());
+        markerEntity.setDuty(markerDto.getDuty());
+        markerEntity.setLatitude(markerDto.getLatitude());
+        markerEntity.setLongitude(markerDto.getLongitude());
+        markerEntity.setFacebookUri(markerDto.getFacebookUri());
+        markerEntity.setImageUri(markerDto.getImageUri());
+        markerEntity.setType(markerDto.getType());
+        markerEntity.setWebUri(markerDto.getWebUri());
+
         MarkerEntity savedData = markerRepository.save(markerEntity);
 
         MarkerDto savedMarkerDto = new MarkerDto();
