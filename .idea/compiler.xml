@@ -17,6 +17,7 @@
       <profile default="true" name="Default" enabled="false">
         <processorPath useClasspath="true" />
       </profile>
+<<<<<<< HEAD
       <profile default="false" name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -29,6 +30,11 @@
       <module name="geolocation" target="1.8" />
       <module name="marker" target="1.6" />
       <module name="Marker" target="1.8" />
+=======
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="marker" target="1.8" />
+>>>>>>> 5d6c35f76f048b1e55878f6e66b5f6cc074d3709
     </bytecodeTargetLevel>
   </component>
 </project>

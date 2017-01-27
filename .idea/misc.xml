@@ -23,6 +23,7 @@
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
+<<<<<<< HEAD
   <component name="masterDetails">
     <states>
       <state key="ProjectJDKs.UI">
@@ -38,4 +39,6 @@
       </state>
     </states>
   </component>
+=======
+>>>>>>> 5d6c35f76f048b1e55878f6e66b5f6cc074d3709
 </project>

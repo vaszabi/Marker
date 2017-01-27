@@ -2,6 +2,9 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+<<<<<<< HEAD
     <file url="file://$PROJECT_DIR$/marker" charset="UTF-8" />
+=======
+>>>>>>> 5d6c35f76f048b1e55878f6e66b5f6cc074d3709
   </component>
 </project>

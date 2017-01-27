@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/marker/Marker.iml" filepath="$PROJECT_DIR$/marker/Marker.iml" />
       <module fileurl="file://$PROJECT_DIR$/geolocation.iml" filepath="$PROJECT_DIR$/geolocation.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/Geolocation.iml" filepath="$PROJECT_DIR$/Geolocation.iml" />
+>>>>>>> 5d6c35f76f048b1e55878f6e66b5f6cc074d3709
     </modules>
   </component>
 </project>
