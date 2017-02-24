@@ -44,4 +44,11 @@ public interface MarkerApi {
     @ResponseBody
     ResponseEntity<Void> updatemarker(@RequestBody Marker marker, @PathVariable("markerId") Long markerId);
 
+
+    @RequestMapping(value = "/marker/closest",
+            produces = {"application/json"},
+            method = RequestMethod.POST)
+    @ResponseBody
+    ResponseEntity<Marker> closestMarker(@RequestBody Marker marker);
+
 }

@@ -1,6 +1,7 @@
 package hu.wup.wuppadavans.service;
 
 import hu.wup.wuppadavans.dto.MarkerDto;
+import hu.wup.wuppadavans.model.Marker;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface MarkerService {
     MarkerDto register(MarkerDto markerDto);
 
     void updatemarker(MarkerDto updatedMarkerDto, Long markerDtoId);
+
+    MarkerDto closestMarker(MarkerDto markerDto);
 }

@@ -107,6 +107,7 @@ public class MarkerController implements MarkerApi {
         markerDto.setHasPharmacy(marker.getHasPharmacy());
         markerDto.setPharmacyOpen(marker.getIsPharmacyOpen());
         markerDto.setDuty(marker.getIsDuty());
+        markerDto.setLatitude(marker.getLatitude());
         markerDto.setLongitude(marker.getLongitude());
         markerDto.setFacebookUri(marker.getFacebookUri());
         markerDto.setImageUri(marker.getImageUri());
@@ -144,5 +145,34 @@ public class MarkerController implements MarkerApi {
 
 
         return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<Marker> closestMarker(@RequestBody Marker marker) {
+
+        MarkerDto markerDto = new MarkerDto();
+        markerDto.setLatitude(marker.getLatitude());
+        markerDto.setLongitude(marker.getLongitude());
+
+        MarkerDto closestMarkerDto = markerService.closestMarker(markerDto);
+        Marker closestMarker = new Marker();
+
+        closestMarker.setName(closestMarkerDto.getName());
+        closestMarker.setId(closestMarkerDto.getId());
+        closestMarker.setAddress(closestMarkerDto.getAddress());
+        closestMarker.setDescription(closestMarkerDto.getDescription());
+        closestMarker.setIsOpen(closestMarkerDto.getOpen());
+        closestMarker.setPhones(closestMarkerDto.getPhones());
+        closestMarker.setHasPharmacy(closestMarkerDto.getHasPharmacy());
+        closestMarker.setIsPharmacyOpen(closestMarkerDto.getPharmacyOpen());
+        closestMarker.setIsDuty(closestMarkerDto.getDuty());
+        closestMarker.setLatitude(closestMarkerDto.getLatitude());
+        closestMarker.setLongitude(closestMarkerDto.getLongitude());
+        closestMarker.setFacebookUri(closestMarkerDto.getFacebookUri());
+        closestMarker.setImageUri(closestMarkerDto.getImageUri());
+        closestMarker.setType(closestMarkerDto.getType());
+        closestMarker.setWebUri(closestMarkerDto.getWebUri());
+
+        return ResponseEntity.ok(closestMarker);
     }
 }
