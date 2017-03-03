@@ -1,14 +1,16 @@
 package hu.wup.wuppadavans.service.impl;
 
-import com.google.maps.DirectionsApiRequest;
+import com.google.maps.DistanceMatrixApi;
 import com.google.maps.GeoApiContext;
+import com.google.maps.model.Distance;
+import com.google.maps.model.DistanceMatrix;
+import com.google.maps.model.Unit;
 import hu.wup.wuppadavans.dto.MarkerDto;
 import hu.wup.wuppadavans.entity.MarkerEntity;
 import hu.wup.wuppadavans.repository.MarkerRepository;
 import hu.wup.wuppadavans.service.MarkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.google.maps.DirectionsApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +21,7 @@ public class MarkerServiceImpl implements MarkerService {
     @Autowired
     private MarkerRepository markerRepository;
 
-    private GeoApiContext geoApiContext;
-
-    public MarkerServiceImpl() {
-           //this.markerDtos = new ArrayList<>();
+    protected MarkerServiceImpl() {
     }
 
 
@@ -128,7 +127,6 @@ public class MarkerServiceImpl implements MarkerService {
         savedMarkerDto.setWebUri(savedData.getWebUri());
 
 
-
         return savedMarkerDto;
     }
 
@@ -163,9 +161,9 @@ public class MarkerServiceImpl implements MarkerService {
         MarkerDto closestMarkerDto = new MarkerDto();
         List<MarkerEntity> markerEntities = markerRepository.findAll();
         for (MarkerEntity entity : markerEntities) {
-           diff = distance(markerDto.getLatitude(), markerDto.getLongitude(), entity.getLatitude(), entity.getLongitude());
+            diff = distance(markerDto.getLatitude(), markerDto.getLongitude(), entity.getLatitude(), entity.getLongitude());
 
-            if(diff < mindDiff){
+            if (diff < mindDiff) {
                 mindDiff = diff;
 
                 closestMarkerDto.setName(entity.getName());
@@ -188,13 +186,62 @@ public class MarkerServiceImpl implements MarkerService {
 
         }
 
-        geoApiContext.setApiKey("AIzaSyAVnDLk0slsH7N3_NSFBX_0uu0Quq0jDKc");
-
 
         return closestMarkerDto;
     }
 
-    public double distance(double lat1, double lon1, double lat2, double lon2) {
+    @Override
+    public MarkerDto closestMarkerDriving(MarkerDto markerDto) {
+
+        GeoApiContext geoApiContext = new GeoApiContext().setApiKey("API_KEY");
+        Distance min = new Distance();
+        min.inMeters = Long.MAX_VALUE;
+        Distance actual = new Distance();
+        MarkerDto closestMarkerDto = new MarkerDto();
+        List<MarkerEntity> markerEntities = markerRepository.findAll();
+        for (MarkerEntity entity : markerEntities) {
+
+            try {
+                DistanceMatrix matrix = DistanceMatrixApi.newRequest(geoApiContext)
+                        .origins(String.valueOf(markerDto.getLatitude()), String.valueOf(markerDto.getLongitude()))
+                        .destinations(String.valueOf(entity.getLatitude()), String.valueOf(entity.getLongitude()))
+                        .units(Unit.METRIC)
+                        .await();
+
+                actual = matrix.rows[0].elements[0].distance;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            if (actual.inMeters < min.inMeters) {
+                min.inMeters = actual.inMeters;
+
+                closestMarkerDto.setName(entity.getName());
+                closestMarkerDto.setId(entity.getId());
+                closestMarkerDto.setAddress(entity.getAddress());
+                closestMarkerDto.setDescription(entity.getDescription());
+                closestMarkerDto.setOpen(entity.getOpen());
+                closestMarkerDto.setPhones(entity.getPhones());
+                closestMarkerDto.setHasPharmacy(entity.getHasPharmacy());
+                closestMarkerDto.setPharmacyOpen(entity.getPharmacyOpen());
+                closestMarkerDto.setDuty(entity.getDuty());
+                closestMarkerDto.setLatitude(entity.getLatitude());
+                closestMarkerDto.setLongitude(entity.getLongitude());
+                closestMarkerDto.setFacebookUri(entity.getFacebookUri());
+                closestMarkerDto.setImageUri(entity.getImageUri());
+                closestMarkerDto.setType(entity.getType());
+                closestMarkerDto.setWebUri(entity.getWebUri());
+            }
+            System.out.println("actual:" + actual.inMeters);
+            System.out.println("min:" + min.inMeters);
+
+        }
+        return closestMarkerDto;
+    }
+
+    private double distance(double lat1, double lon1, double lat2, double lon2) {
         double theta = lon1 - lon2;
         double dist = Math.sin(lat1 * Math.PI / 180.0) * Math.sin(lat2 * Math.PI / 180.0) + Math.cos(lat1 * Math.PI / 180.0) * Math.cos(lat2 * Math.PI / 180.0) * Math.cos(theta * Math.PI / 180.0);
         dist = Math.acos(dist);

@@ -20,9 +20,7 @@ public class MarkerController implements MarkerApi {
     @Autowired
     private MarkerService markerService;
 
-    protected MarkerController() {
-
-    }
+    protected MarkerController() {}
 
     @Autowired
     public void setMarkerService(MarkerService markerService) {
@@ -155,6 +153,35 @@ public class MarkerController implements MarkerApi {
         markerDto.setLongitude(marker.getLongitude());
 
         MarkerDto closestMarkerDto = markerService.closestMarker(markerDto);
+        Marker closestMarker = new Marker();
+
+        closestMarker.setName(closestMarkerDto.getName());
+        closestMarker.setId(closestMarkerDto.getId());
+        closestMarker.setAddress(closestMarkerDto.getAddress());
+        closestMarker.setDescription(closestMarkerDto.getDescription());
+        closestMarker.setIsOpen(closestMarkerDto.getOpen());
+        closestMarker.setPhones(closestMarkerDto.getPhones());
+        closestMarker.setHasPharmacy(closestMarkerDto.getHasPharmacy());
+        closestMarker.setIsPharmacyOpen(closestMarkerDto.getPharmacyOpen());
+        closestMarker.setIsDuty(closestMarkerDto.getDuty());
+        closestMarker.setLatitude(closestMarkerDto.getLatitude());
+        closestMarker.setLongitude(closestMarkerDto.getLongitude());
+        closestMarker.setFacebookUri(closestMarkerDto.getFacebookUri());
+        closestMarker.setImageUri(closestMarkerDto.getImageUri());
+        closestMarker.setType(closestMarkerDto.getType());
+        closestMarker.setWebUri(closestMarkerDto.getWebUri());
+
+        return ResponseEntity.ok(closestMarker);
+    }
+
+    @Override
+    public ResponseEntity<Marker> closestMarkerDriving(@RequestBody Marker marker) {
+
+        MarkerDto markerDto = new MarkerDto();
+        markerDto.setLatitude(marker.getLatitude());
+        markerDto.setLongitude(marker.getLongitude());
+
+        MarkerDto closestMarkerDto = markerService.closestMarkerDriving(markerDto);
         Marker closestMarker = new Marker();
 
         closestMarker.setName(closestMarkerDto.getName());

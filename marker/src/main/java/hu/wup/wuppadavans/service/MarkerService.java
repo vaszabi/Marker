@@ -18,4 +18,6 @@ public interface MarkerService {
     void updatemarker(MarkerDto updatedMarkerDto, Long markerDtoId);
 
     MarkerDto closestMarker(MarkerDto markerDto);
+
+    MarkerDto closestMarkerDriving(MarkerDto markerDto);
 }

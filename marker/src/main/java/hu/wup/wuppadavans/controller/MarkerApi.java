@@ -51,4 +51,9 @@ public interface MarkerApi {
     @ResponseBody
     ResponseEntity<Marker> closestMarker(@RequestBody Marker marker);
 
+    @RequestMapping(value = "/marker/driving",
+            produces = {"application/json"},
+            method = RequestMethod.POST)
+    @ResponseBody
+    ResponseEntity<Marker> closestMarkerDriving(@RequestBody Marker marker);
 }
