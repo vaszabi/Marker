@@ -1,5 +1,6 @@
 package hu.wup.wuppadavans.controller;
 
+import com.google.maps.model.DirectionsResult;
 import hu.wup.wuppadavans.model.Marker;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,5 +56,5 @@ public interface MarkerApi {
             produces = {"application/json"},
             method = RequestMethod.POST)
     @ResponseBody
-    ResponseEntity<Marker> closestMarkerDriving(@RequestBody Marker marker);
+    ResponseEntity<DirectionsResult> closestMarkerDriving(@RequestBody Marker marker);
 }

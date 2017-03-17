@@ -1,7 +1,7 @@
 package hu.wup.wuppadavans.service;
 
+import com.google.maps.model.DirectionsResult;
 import hu.wup.wuppadavans.dto.MarkerDto;
-import hu.wup.wuppadavans.model.Marker;
 
 import java.util.List;
 
@@ -19,5 +19,5 @@ public interface MarkerService {
 
     MarkerDto closestMarker(MarkerDto markerDto);
 
-    MarkerDto closestMarkerDriving(MarkerDto markerDto);
+    DirectionsResult closestMarkerDriving(MarkerDto markerDto);
 }

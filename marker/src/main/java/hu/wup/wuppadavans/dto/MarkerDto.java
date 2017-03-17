@@ -146,4 +146,11 @@ public class MarkerDto {
     public void setDuty(Boolean duty) {
         isDuty = duty;
     }
+
+
+    @Override
+    public String toString() {
+        return Double.toString(latitude)+','+Double.toString(longitude);
+    }
 }
+

@@ -1,9 +1,8 @@
 package hu.wup.wuppadavans.service.impl;
 
-import com.google.maps.DistanceMatrixApi;
+import com.google.maps.DirectionsApi;
 import com.google.maps.GeoApiContext;
-import com.google.maps.model.Distance;
-import com.google.maps.model.DistanceMatrix;
+import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.Unit;
 import hu.wup.wuppadavans.dto.MarkerDto;
 import hu.wup.wuppadavans.entity.MarkerEntity;
@@ -191,54 +190,29 @@ public class MarkerServiceImpl implements MarkerService {
     }
 
     @Override
-    public MarkerDto closestMarkerDriving(MarkerDto markerDto) {
+    public DirectionsResult closestMarkerDriving(MarkerDto markerDto) {
 
         GeoApiContext geoApiContext = new GeoApiContext().setApiKey("API_KEY");
-        Distance min = new Distance();
-        min.inMeters = Long.MAX_VALUE;
-        Distance actual = new Distance();
-        MarkerDto closestMarkerDto = new MarkerDto();
-        List<MarkerEntity> markerEntities = markerRepository.findAll();
-        for (MarkerEntity entity : markerEntities) {
+        MarkerDto closestMarkerDto = closestMarker(markerDto);
 
-            try {
-                DistanceMatrix matrix = DistanceMatrixApi.newRequest(geoApiContext)
-                        .origins(String.valueOf(markerDto.getLatitude()), String.valueOf(markerDto.getLongitude()))
-                        .destinations(String.valueOf(entity.getLatitude()), String.valueOf(entity.getLongitude()))
-                        .units(Unit.METRIC)
-                        .await();
+        DirectionsResult result = new DirectionsResult();
 
-                actual = matrix.rows[0].elements[0].distance;
+        try {
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            DirectionsResult directions = DirectionsApi.newRequest(geoApiContext)
+                    .origin(markerDto.toString())
+                    .destination(closestMarkerDto.toString())
+                    .units(Unit.METRIC)
+                    .await();
+
+            result = directions;
 
 
-            if (actual.inMeters < min.inMeters) {
-                min.inMeters = actual.inMeters;
-
-                closestMarkerDto.setName(entity.getName());
-                closestMarkerDto.setId(entity.getId());
-                closestMarkerDto.setAddress(entity.getAddress());
-                closestMarkerDto.setDescription(entity.getDescription());
-                closestMarkerDto.setOpen(entity.getOpen());
-                closestMarkerDto.setPhones(entity.getPhones());
-                closestMarkerDto.setHasPharmacy(entity.getHasPharmacy());
-                closestMarkerDto.setPharmacyOpen(entity.getPharmacyOpen());
-                closestMarkerDto.setDuty(entity.getDuty());
-                closestMarkerDto.setLatitude(entity.getLatitude());
-                closestMarkerDto.setLongitude(entity.getLongitude());
-                closestMarkerDto.setFacebookUri(entity.getFacebookUri());
-                closestMarkerDto.setImageUri(entity.getImageUri());
-                closestMarkerDto.setType(entity.getType());
-                closestMarkerDto.setWebUri(entity.getWebUri());
-            }
-            System.out.println("actual:" + actual.inMeters);
-            System.out.println("min:" + min.inMeters);
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return closestMarkerDto;
+
+        return result;
     }
 
     private double distance(double lat1, double lon1, double lat2, double lon2) {
