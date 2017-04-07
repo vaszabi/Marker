@@ -14,15 +14,11 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service("markerService")
 public class MarkerServiceImpl implements MarkerService {
 
     @Autowired
     private MarkerRepository markerRepository;
-
-    protected MarkerServiceImpl() {
-    }
-
 
     @Override
     public void deletemarkerById(Long markerDtoId) {

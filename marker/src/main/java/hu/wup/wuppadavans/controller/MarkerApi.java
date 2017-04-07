@@ -4,6 +4,7 @@ import com.google.maps.model.DirectionsResult;
 import hu.wup.wuppadavans.model.Marker;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface MarkerApi {
             produces = {"application/json"},
             method = RequestMethod.DELETE)
     @ResponseBody
-    ResponseEntity<Void> deletemarkerById(@PathVariable("markerId") Long markerId);
+    ResponseEntity<?> deletemarkerById(@PathVariable("markerId") Long markerId);
 
 
     @RequestMapping(value = "/marker",
@@ -36,14 +37,14 @@ public interface MarkerApi {
             consumes = {"application/json"},
             method = RequestMethod.POST)
     @ResponseBody
-    ResponseEntity<Marker> register(@RequestBody Marker marker);
+    ResponseEntity<?> register(@RequestBody Marker marker, UriComponentsBuilder ucBuilder);
 
 
     @RequestMapping(value = "/marker/{markerId}",
             produces = {"application/json"},
             method = RequestMethod.POST)
     @ResponseBody
-    ResponseEntity<Void> updatemarker(@RequestBody Marker marker, @PathVariable("markerId") Long markerId);
+    ResponseEntity<?> updatemarker(@RequestBody Marker marker, @PathVariable("markerId") Long markerId);
 
 
     @RequestMapping(value = "/marker/closest",

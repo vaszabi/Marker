@@ -6,10 +6,13 @@ import hu.wup.wuppadavans.dto.MarkerDto;
 import hu.wup.wuppadavans.model.Marker;
 import hu.wup.wuppadavans.service.MarkerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +32,11 @@ public class MarkerController implements MarkerApi {
     }
 
     @Override
-    public ResponseEntity<Void> deletemarkerById(@PathVariable Long markerId) {
+    public ResponseEntity<?> deletemarkerById(@PathVariable Long markerId) {
 
         markerService.deletemarkerById(markerId);
 
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<Marker>(HttpStatus.NO_CONTENT);
     }
 
     @Override
@@ -64,8 +67,11 @@ public class MarkerController implements MarkerApi {
             markerList.add(marker);
 
         }
+        if(markerList.isEmpty()){
+            return new ResponseEntity<List<Marker>>(HttpStatus.NO_CONTENT);
+        }
 
-        return ResponseEntity.ok(markerList);
+        return new ResponseEntity<List<Marker>>(markerList, HttpStatus.OK);
     }
 
     @Override
@@ -90,11 +96,11 @@ public class MarkerController implements MarkerApi {
         marker.setType(markerDto.getType());
         marker.setWebUri(markerDto.getWebUri());
 
-        return ResponseEntity.ok(marker);
+        return new ResponseEntity<Marker>(marker, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<Marker> register(@RequestBody Marker marker) {
+    public ResponseEntity<?> register(@RequestBody Marker marker, UriComponentsBuilder ucBuilder) {
         MarkerDto markerDto = new MarkerDto();
 
         markerDto.setName(marker.getName());
@@ -115,13 +121,19 @@ public class MarkerController implements MarkerApi {
 
         markerService.register(markerDto);
 
-        return ResponseEntity.ok(marker);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(ucBuilder.path("/marker/{markerId}").buildAndExpand(markerDto.getId()).toUri());
+        return new ResponseEntity<String>(headers, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<Void> updatemarker(@RequestBody Marker updatedMarker,@PathVariable Long markerId) {
+    public ResponseEntity<?> updatemarker(@RequestBody Marker updatedMarker, @PathVariable Long markerId) {
 
         MarkerDto markerDto = markerService.loadmarkerById(markerId);
+
+        if(markerDto == null){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
 
         markerDto.setName(updatedMarker.getName());
         //markerDto.setId(updatedMarker.getId());
@@ -143,7 +155,7 @@ public class MarkerController implements MarkerApi {
         markerService.updatemarker(markerDto, markerDto.getId());
 
 
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<Marker>(updatedMarker, HttpStatus.OK);
     }
 
     @Override
@@ -172,7 +184,7 @@ public class MarkerController implements MarkerApi {
         closestMarker.setType(closestMarkerDto.getType());
         closestMarker.setWebUri(closestMarkerDto.getWebUri());
 
-        return ResponseEntity.ok(closestMarker);
+        return new ResponseEntity<Marker>(closestMarker, HttpStatus.OK);
     }
 
     @Override
@@ -185,6 +197,6 @@ public class MarkerController implements MarkerApi {
         DirectionsResult direction = markerService.closestMarkerDriving(markerDto);
 
 
-        return ResponseEntity.ok(direction);
+        return new ResponseEntity<DirectionsResult>(direction, HttpStatus.OK);
     }
 }

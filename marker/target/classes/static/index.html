@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head xmlns:th="http://www.springframework.org/schema/jdbc">
+    <meta charset="UTF-8" />
+    <title>Front-end test</title>
+
+</head>
+
+<body ng-app="myApp" ng-controller="ng-cloak">
+
+
+<div class="generic-container" ng-controller="MarkersController as vm">
+
+            <!-- Display bookings in a table -->
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Address</th>
+                    <th>Phones</th>
+                    <th style="width: 90px"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="marker in vm.markers">
+                    <td>{{marker.name)}}</td>
+                    <td>{{marker.type}}</td>
+                    <td>{{marker.address}}</td>
+                    <td>{{marker.phones}}</td>
+                </tr>
+                </tbody>
+            </table>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+<script src="<c:url value='/static/js/app.js' />"></script>
+<script src="<c:url value='/static/js/app/UserService.js' />"></script>
+<script src="<c:url value='/static/js/app/UserController.js' />"></script>
+
+
+</body>
+</html>
